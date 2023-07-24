@@ -1,0 +1,24 @@
+﻿  BaseObject.cpp
+  BulletObject.cpp
+  Common_Function.cpp
+  ExplosionObject.cpp
+  GameSDL.Cpp.cpp
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\GameSDL.Cpp.cpp(110,40): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\GameSDL.Cpp.cpp(189,35): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\GameSDL.Cpp.cpp(190,35): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\GameSDL.Cpp.cpp(214,37): warning C4018: '<': signed/unsigned mismatch
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\GameSDL.Cpp.cpp(224,43): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\GameSDL.Cpp.cpp(225,43): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\GameSDL.Cpp.cpp(245,37): warning C4018: '<': signed/unsigned mismatch
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\GameSDL.Cpp.cpp(255,43): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\GameSDL.Cpp.cpp(256,43): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  MainObject.cpp
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\MainObject.cpp(80,72): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\MainObject.cpp(97,20): warning C4018: '<': signed/unsigned mismatch
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\MainObject.cpp(136,20): warning C4018: '<': signed/unsigned mismatch
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\MainObject.cpp(138,11): warning C4018: '<': signed/unsigned mismatch
+  ThreatsObject.cpp
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\ThreatsObject.cpp(17,21): warning C4018: '<': signed/unsigned mismatch
+D:\GameCPlusPlus\GameSDL.Cpp\GameSDL.Cpp\ThreatsObject.cpp(98,20): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  GameSDL.Cpp.vcxproj -> D:\GameCPlusPlus\GameSDL.Cpp\Debug\GameSDL.Cpp.exe
