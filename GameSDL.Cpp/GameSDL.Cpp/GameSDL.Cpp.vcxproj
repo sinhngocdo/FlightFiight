@@ -80,6 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)SDL_Lib\SDL2_ttf_2_0_11\include;$(SolutionDir)SDL_Lib\SDL_mixer_1_2_12\include;$(SolutionDir)SDL_Lib\SDL_image_1_2_4\include;$(SolutionDir)SDL_Lib\SDL_1_2_15\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SDL_Lib\SDL2_ttf_2_0_11\lib\x86;$(SolutionDir)SDL_Lib\SDL_mixer_1_2_12\lib\x86;$(SolutionDir)SDL_Lib\SDL_image_1_2_4\lib;$(SolutionDir)SDL_Lib\SDL_1_2_15\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -123,6 +125,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL.lib;SDLMain.lib;SDL_image.lib;SDL_mixer.lib;SDL_tff.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -148,6 +151,7 @@
     <ClCompile Include="ExplosionObject.cpp" />
     <ClCompile Include="GameSDL.Cpp.cpp" />
     <ClCompile Include="MainObject.cpp" />
+    <ClCompile Include="PlayerPower.cpp" />
     <ClCompile Include="ThreatsObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +160,7 @@
     <ClInclude Include="Common_Function.h" />
     <ClInclude Include="ExplosionObject.h" />
     <ClInclude Include="MainObject.h" />
+    <ClInclude Include="PlayerPower.h" />
     <ClInclude Include="ThreatsObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

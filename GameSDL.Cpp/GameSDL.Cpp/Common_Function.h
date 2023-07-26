@@ -22,6 +22,7 @@ const int POS_X_START_MAIN_OBJ = 100;
 const int POS_Y_START_MAIN_OBJ = 200;
 const int SPEED_MAIN_OBJ = 10;
 const int SPEED_BULLET_MAIN = 20;
+const int NUMBER_PLAYER_POWER = 3;
 
 //Threats
 const int SPEED_THREAT = 5;
@@ -48,7 +49,8 @@ static char g_name_bullet_main_fire[] = { "sphere.png" };
 static char g_name_audio_bullet_main_laser[] = { "Gun+Silencer.wav" };
 static char g_name_audio_bullet_main_fire[] = { "Gun+1.wav" };
 static char g_name_audio_exp_main[] = { "Bomb+1.wav" };
-
+static char g_name_heart_power[] = { "traITym.png" };
+ 
 //threat file
 static char g_name_exp_threats[] = { "exp.png" };
 static char g_name_threats[] = { "af1.png" };

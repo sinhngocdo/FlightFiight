@@ -5,6 +5,7 @@
 #include "MainObject.h"
 #include "ThreatsObject.h"
 #include "ExplosionObject.h"
+#include "PlayerPower.h"
 
 #undef main
 
@@ -59,7 +60,10 @@ int main(int arc, char* argv[])
         return 0;
     }
 
-    SDLCommonFunc::ApplySurface(g_Bground, g_screen, 0, 0);
+    //make player power
+    PlayerPower player_power;
+    player_power.Init();
+
 
     //make player main object
     MainObject plane_object;
@@ -118,7 +122,8 @@ int main(int arc, char* argv[])
         }
     }
 
-    
+    unsigned int die_number = 0;
+
     
     while (!is_quit)
     {
@@ -163,6 +168,8 @@ int main(int arc, char* argv[])
         }
 
 
+        //show player power
+        player_power.Render(g_screen);
 
         //implement main object
         plane_object.HandleMove();
@@ -179,10 +186,28 @@ int main(int arc, char* argv[])
                 p_threat->Show(g_screen);
                 p_threat->MakeBullet(g_screen, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+
+                //check collision bullet -> main
+                bool is_col_tt;
+                std::vector<BulletObject*> Bullet_list_threat = p_threat->GetBulletList();
+                for (int tm = 0; tm < Bullet_list_threat.size(); tm++)
+                {
+                    BulletObject* p_Bullet_tt = Bullet_list_threat.at(tm);
+                    if (p_Bullet_tt != NULL)
+                    {
+                        is_col_tt = SDLCommonFunc::CheckCollision(plane_object.GetRect(), p_Bullet_tt->GetRect());
+                        if (is_col_tt)
+                        {
+                            p_threat->ResetBullet(p_Bullet_tt);
+                            break;
+                        }
+                    }
+                }
+
+
                 //check collision main and threat
                 bool is_col = SDLCommonFunc::CheckCollision(plane_object.GetRect(), p_threat->GetRect());
-                
-                if (is_col)
+                if (is_col || is_col_tt)
                 {
                     for (int ex = 0; ex < 4; ex++)
                     {
@@ -200,12 +225,30 @@ int main(int arc, char* argv[])
                     }
                     Mix_PlayChannel(-1, g_sound_exp[1], 0);
 
-                    if (MessageBox(NULL, L"GAME OVER", L"Info", MB_OK) == IDOK)
+                    die_number++;
+                    if (die_number <= 2)
                     {
-                        delete[] p_threats;
-                        SDLCommonFunc::CleanUp();
-                        SDL_Quit();
-                        return 1;
+                        SDL_Delay(1000);
+                        plane_object.SetRect(POS_X_START_MAIN_OBJ, POS_Y_START_MAIN_OBJ);
+                        player_power.Decrease();
+                        player_power.Render(g_screen);
+                        if (SDL_Flip(g_screen) == -1)
+                        {
+                            delete[] p_threats;
+                            SDLCommonFunc::CleanUp();
+                            SDL_Quit();
+                            return 0;
+                        }
+                    }
+                    else
+                    {
+                        if (MessageBox(NULL, L"GAME OVER", L"Info", MB_OK) == IDOK)
+                        {
+                            delete[] p_threats;
+                            SDLCommonFunc::CleanUp();
+                            SDL_Quit();
+                            return 1;
+                        }
                     }
                 }
 
@@ -241,41 +284,7 @@ int main(int arc, char* argv[])
                     }
                 }
 
-                std::vector<BulletObject*> Bullet_list_threat = p_threat->GetBulletList();
-                for (int tm = 0; tm < Bullet_list_threat.size(); tm++)
-                {
-                    BulletObject* p_Bullet_tt = Bullet_list_threat.at(tm);
-                    if (p_Bullet_tt != NULL)
-                    {
-                        bool is_col_tt = SDLCommonFunc::CheckCollision(plane_object.GetRect(), p_Bullet_tt->GetRect());
-                        if (is_col_tt)
-                        {
-                            for (int ex = 0; ex < 4; ex++)
-                            {
-                                int x_pos = (plane_object.GetRect().x + plane_object.GetRect().w * 0.5) - EXP_WIDTH * 0.5;
-                                int y_pos = (plane_object.GetRect().y + plane_object.GetRect().h * 0.5) - EXP_HEIGHT * 0.5;
-
-                                exp_main.Set_frame(ex);
-                                exp_main.SetRect(x_pos, y_pos);
-                                exp_main.ShowEx(g_screen);
-                                //update screen
-                                if (SDL_Flip(g_screen) == -1)
-                                {
-                                    return 0;
-                                }
-                            }
-                            Mix_PlayChannel(-1, g_sound_exp[1], 0);
-
-                            if (MessageBox(NULL, L"GAME OVER", L"Info", MB_OK) == IDOK)
-                            {
-                                delete[] p_threats;
-                                SDLCommonFunc::CleanUp();
-                                SDL_Quit();
-                                return 1;
-                            }
-                        }
-                    }
-                }
+                
 
             }
         }
