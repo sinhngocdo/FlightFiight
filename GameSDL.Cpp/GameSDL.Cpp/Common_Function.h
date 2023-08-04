@@ -8,6 +8,7 @@
 #include <string.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
+#include <SDL_ttf.h>
 
 //Screen
 const int WIDTH_BACKGROUND = 4800;
@@ -20,12 +21,12 @@ const int SPEED_SCREEN = 2;
 //Main
 const int POS_X_START_MAIN_OBJ = 100;
 const int POS_Y_START_MAIN_OBJ = 200;
-const int SPEED_MAIN_OBJ = 10;
+const int SPEED_MAIN_OBJ = 7;
 const int SPEED_BULLET_MAIN = 20;
 const int NUMBER_PLAYER_POWER = 3;
 
 //Threats
-const int SPEED_THREAT = 5;
+const int SPEED_THREAT = 3;
 const int NUM_THREAT = 3;
 const int SPEED_BULLET_THREATS = 10;
 const int VAL_OFFSET_START_POST_THREAT = 400;
@@ -33,6 +34,7 @@ const int UNDER_LIMIT_THREAT = 200;
 
 static SDL_Surface* g_screen = NULL;
 static SDL_Surface* g_Bground = NULL;
+static SDL_Surface* g_img_menu = NULL;
 static SDL_Event g_event;
 
 static Mix_Chunk* g_sound_bullet[2];
@@ -40,6 +42,7 @@ static Mix_Chunk* g_sound_exp[2];
 
 //background file
 static char g_name_bk_ground[] = { "bg4800.png" };
+static char g_name_img_menu[] = { "MayBayChienDau.png" };
 
 //main file
 static char g_name_main_obj[] = { "plane_fly.png" };
@@ -59,10 +62,12 @@ static char g_name_audio_exp_threats[] = { "Explosion+7.wav" };
 
 namespace SDLCommonFunc {
 	SDL_Surface* LoadImage(std::string file_path);
-	void ApplySurface(SDL_Surface* src, SDL_Surface* des, int x, int y);
+	SDL_Rect ApplySurface(SDL_Surface* src, SDL_Surface* des, int x, int y);
 	void ApplySurfaceClip(SDL_Surface* src, SDL_Surface* des, SDL_Rect* clip, int x, int y);
 	void CleanUp();
 	bool CheckCollision(const SDL_Rect& object_1, const SDL_Rect& object_2);
+	int ShowMenu(SDL_Surface* des, TTF_Font* font);
+	bool CheckForcusWithRect(const int& x,const int& y,const SDL_Rect& rect);
 }
 
 

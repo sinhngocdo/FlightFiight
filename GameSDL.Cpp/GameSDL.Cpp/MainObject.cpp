@@ -21,19 +21,19 @@ void MainObject::HandleInputAction(SDL_Event events, Mix_Chunk* bullet_sound[2])
 		switch (events.key.keysym.sym)
 		{
 		case SDLK_UP:
-			y_val -= HEIGHT_MAIN_OBJECT / 4;
+			y_val -= HEIGHT_MAIN_OBJECT / SPEED_MAIN_OBJ;
 			//todo
 			break;
 		case SDLK_DOWN:
-			y_val += HEIGHT_MAIN_OBJECT / 4;
+			y_val += HEIGHT_MAIN_OBJECT / SPEED_MAIN_OBJ;
 			//todo
 			break;
 		case SDLK_RIGHT:
-			x_val += WIDTH_MAIN_OBJECT / 4;
+			x_val += WIDTH_MAIN_OBJECT / SPEED_MAIN_OBJ;
 			//todo
 			break;
 		case SDLK_LEFT:
-			x_val -= WIDTH_MAIN_OBJECT / 4;
+			x_val -= WIDTH_MAIN_OBJECT / SPEED_MAIN_OBJ;
 			//todo
 			break;
 
@@ -46,16 +46,16 @@ void MainObject::HandleInputAction(SDL_Event events, Mix_Chunk* bullet_sound[2])
 		switch (events.key.keysym.sym)
 		{
 		case SDLK_UP:
-			y_val += HEIGHT_MAIN_OBJECT / 4;
+			y_val += HEIGHT_MAIN_OBJECT / SPEED_MAIN_OBJ;
 			break;
 		case SDLK_DOWN:
-			y_val -= HEIGHT_MAIN_OBJECT / 4;
+			y_val -= HEIGHT_MAIN_OBJECT / SPEED_MAIN_OBJ;
 			break;
 		case SDLK_RIGHT:
-			x_val -= WIDTH_MAIN_OBJECT / 4;
+			x_val -= WIDTH_MAIN_OBJECT / SPEED_MAIN_OBJ;
 			break;
 		case SDLK_LEFT:
-			x_val += WIDTH_MAIN_OBJECT / 4;
+			x_val += WIDTH_MAIN_OBJECT / SPEED_MAIN_OBJ;
 			break;
 		default:
 			break;

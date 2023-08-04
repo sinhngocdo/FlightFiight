@@ -6,10 +6,12 @@
 #include "ThreatsObject.h"
 #include "ExplosionObject.h"
 #include "PlayerPower.h"
+#include "TextObject.h"
 
 #undef main
 
-static SDL_Surface* g_Object = NULL;
+TTF_Font* g_font_text = NULL;
+TTF_Font* g_font_menu = NULL;
 
 
 bool Init()
@@ -39,6 +41,18 @@ bool Init()
         return false;
     }
 
+    if (TTF_Init() == -1)
+    {
+        return false;
+    }
+
+    g_font_text = TTF_OpenFont("XeroxSansSerifWideBoldOblique.ttf", 20);
+    g_font_menu = TTF_OpenFont("XeroxSansSerifWideBoldOblique.ttf", 50);
+    if (g_font_text == NULL || g_font_menu == NULL)
+    {
+        return false;
+    }
+
     return true;
 
 }
@@ -63,6 +77,12 @@ int main(int arc, char* argv[])
     //make player power
     PlayerPower player_power;
     player_power.Init();
+
+    TextObject time_game;
+    time_game.SetColor(TextObject::WHITE_TEXT);
+
+    TextObject mark_game;
+    mark_game.SetColor(TextObject::WHITE_TEXT);
 
 
     //make player main object
@@ -123,6 +143,13 @@ int main(int arc, char* argv[])
     }
 
     unsigned int die_number = 0;
+    unsigned int mark_value = 0;
+
+    int ret_menu = SDLCommonFunc::ShowMenu(g_screen, g_font_menu);
+    if (ret_menu == 1)
+    {
+        is_quit = true;
+    }
 
     
     while (!is_quit)
@@ -252,7 +279,7 @@ int main(int arc, char* argv[])
                     }
                 }
 
-
+                //check collision bullet -> threat
                 std::vector<BulletObject*> Bullet_list = plane_object.GetBulletList();
                 for (int im = 0; im < Bullet_list.size(); im++)
                 {
@@ -262,6 +289,7 @@ int main(int arc, char* argv[])
                         bool ret_col = SDLCommonFunc::CheckCollision(p_Bullet->GetRect(), p_threat->GetRect());
                         if (ret_col)
                         {
+                            mark_value++;
                             for (int et = 0; et < 4; et++)
                             {
                                 int x_pos = (p_threat->GetRect().x + p_threat->GetRect().w * 0.5) - EXP_WIDTH * 0.5;
@@ -278,7 +306,8 @@ int main(int arc, char* argv[])
                             }
 
                             p_threat->Reset(SCREEN_WIDTH + tt * 400);
-                            plane_object.RemoveBullet(tt);
+                            plane_object.RemoveBullet(im);
+
                             Mix_PlayChannel(-1, g_sound_exp[0], 0);
                         }
                     }
@@ -289,6 +318,22 @@ int main(int arc, char* argv[])
             }
         }
 
+        //show time for game 
+        std::string str_time = "Time : ";
+        UINT32 time_val = SDL_GetTicks()/1000;
+        std::string str_val = std::to_string(time_val);
+        str_time += str_val;
+        
+        time_game.SetText(str_time);
+        time_game.SetRect(SCREEN_WIDTH - 200, 10);
+        time_game.CreateGameText(g_font_text, g_screen);
+
+        //Show mark to screen
+        std::string val_str_mark = std::to_string(mark_value);
+        std::string strMark("Mark: ");
+        strMark += val_str_mark;
+        mark_game.SetText(strMark);
+        mark_game.CreateGameText(g_font_text, g_screen);
 
         //update screen
         if (SDL_Flip(g_screen) == -1)
